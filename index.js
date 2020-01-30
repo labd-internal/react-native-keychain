@@ -319,7 +319,12 @@ export function getSupportedBiometryType(
   if (!RNKeychainManager.getSupportedBiometryType) {
     return Promise.resolve(null);
   }
-  return RNKeychainManager.getSupportedBiometryType(options);
+  if (Platform.OS === 'android') {
+    return RNKeychainManager.getSupportedBiometryType(options);
+  }
+  if (Platform.OS === 'ios') {
+    return RNKeychainManager.getSupportedBiometryType();
+  }
 }
 
 /** Refs: https://www.saltycrane.com/cheat-sheets/flow-type/latest/ */
